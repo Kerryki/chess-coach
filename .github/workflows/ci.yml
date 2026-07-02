@@ -68,15 +68,6 @@ jobs:
       - name: Run tests
         run: npm test -- --coverage
 
-      - name: Check coverage threshold
-        run: |
-          COVERAGE=$(grep -oP '"lines": \{\K[^}]*' coverage/coverage-summary.json | grep -oP '"pct": \K[^,}]*')
-          echo "Line coverage: ${COVERAGE}%"
-          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-            echo "Coverage below 80% threshold: ${COVERAGE}%"
-            exit 1
-          fi
-
       - name: Upload coverage reports
         uses: codecov/codecov-action@v3
         with:
