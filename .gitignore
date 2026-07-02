@@ -4,7 +4,6 @@ npm-debug.log
 yarn-error.log
 pnpm-debug.log
 yarn.lock
-package-lock.json
 pnpm-lock.yaml
 
 # Next.js build
