@@ -154,28 +154,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-
-  deploy:
-    name: Deploy to Vercel
-    runs-on: ubuntu-latest
-    needs: [lint, type-check, test, build]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Deploy to Vercel
-        uses: vercel/action@v2.2.7
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          production: true
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-
-      - name: Get deployment URL
-        id: deployment
-        run: |
-          echo "Deployment completed successfully"
-          echo "Check Vercel dashboard for live URL"
